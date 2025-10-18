@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bingo de Halloween</title>
+    <!-- Fontes do Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="bingo-container">
+        <h1>Bingo de Halloween</h1>
+        <div class="current-ball-container">
+            <div class="current-ball">
+                <span class="current-letter"></span>
+                <span class="current-number"></span>
+            </div>
+        </div>
+        <button id="draw-button">Sortear Abóbora</button>
+        
+        <h2>Placar Assombrado</h2>
+        <div class="all-balls-grid">
+            <div class="letter-column"><h3>B</h3><div id="all-b" class="all-balls"></div></div>
+            <div class="letter-column"><h3>I</h3><div id="all-i" class="all-balls"></div></div>
+            <div class="letter-column"><h3>N</h3><div id="all-n" class="all-balls"></div></div>
+            <div class="letter-column"><h3>G</h3><div id="all-g" class="all-balls"></div></div>
+            <div class="letter-column"><h3>O</h3><div id="all-o" class="all-balls"></div></div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
