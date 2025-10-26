@@ -12,6 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
         O: document.getElementById('all-o'),
     };
 
+    const rulesButton = document.getElementById('rules-button');
+    const rulesModal = document.getElementById('rules-modal');
+    const closeButton = document.querySelector('.close-button');
+
     let availableNumbers = Array.from({ length: 75 }, (_, i) => i + 1);
 
     function getLetter(number) {
@@ -47,20 +51,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const letter = getLetter(newNumber);
 
-        // Animação de entrada da abóbora sorteada
         currentBallParent.style.transform = 'scale(0.5)';
         setTimeout(() => {
             currentLetterDisplay.textContent = letter;
             currentNumberDisplay.textContent = newNumber;
-            // A animação de pulsação já cuidará do retorno visual
         }, 150);
 
-        // Marca no placar geral
         const allBall = document.getElementById(`ball-${newNumber}`);
         allBall.classList.add('drawn');
     }
 
-    drawButton.addEventListener('click', drawNumber);
+    function openModal() {
+        rulesModal.classList.remove('hidden');
+    }
 
+    function closeModal() {
+        rulesModal.classList.add('hidden');
+    }
+
+    rulesButton.addEventListener('click', openModal);
+    closeButton.addEventListener('click', closeModal);
+    
+    rulesModal.addEventListener('click', (event) => {
+        if (event.target === rulesModal) {
+            closeModal();
+        }
+    });
+
+    drawButton.addEventListener('click', drawNumber);
     initializeBoard();
 });

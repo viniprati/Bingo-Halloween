@@ -4,16 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bingo de Halloween</title>
-    <!-- Fontes do Google -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Lato:wght@400;700&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="bingo-container">
-        <h1>Bingo de Halloween</h1>
+        <h1>Bingo do Vampiro</h1>
         <div class="current-ball-container">
             <div class="current-ball">
                 <span class="current-letter"></span>
@@ -21,6 +19,7 @@
             </div>
         </div>
         <button id="draw-button">Sortear Abóbora</button>
+        <button id="rules-button">Prêmios</button>
         
         <h2>Placar Assombrado</h2>
         <div class="all-balls-grid">
@@ -31,6 +30,53 @@
             <div class="letter-column"><h3>O</h3><div id="all-o" class="all-balls"></div></div>
         </div>
     </div>
+
+    <div id="rules-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Como marcar pontos</h2>
+            <p class="rules-subtitle">Exemplos:</p>
+            
+            <div class="rules-list">
+                <div class="rule-item">
+                    <h4>4 Pontas</h4>
+                    <p>Marque os quatro números nos cantos da cartela.</p>
+                    <div class="card-example">
+                        <div class="cell highlighted">11</div> <div class="cell">16</div> <div class="cell">34</div> <div class="cell">54</div> <div class="cell highlighted">75</div>
+                        <div class="cell">07</div> <div class="cell">18</div> <div class="cell">40</div> <div class="cell">46</div> <div class="cell">65</div>
+                        <div class="cell">09</div> <div class="cell">23</div> <div class="cell free-space">A</div> <div class="cell">51</div> <div class="cell">71</div>
+                        <div class="cell">04</div> <div class="cell">20</div> <div class="cell">39</div> <div class="cell">55</div> <div class="cell">67</div>
+                        <div class="cell highlighted">13</div> <div class="cell">22</div> <div class="cell">32</div> <div class="cell">60</div> <div class="cell highlighted">63</div>
+                    </div>
+                </div>
+
+                <div class="rule-item">
+                    <h4>Quina (Linha)</h4>
+                    <p>Complete uma linha inteira (ex: a 4ª linha).</p>
+                    <div class="card-example">
+                        <div class="cell">11</div> <div class="cell">16</div> <div class="cell">34</div> <div class="cell">54</div> <div class="cell">75</div>
+                        <div class="cell">07</div> <div class="cell">18</div> <div class="cell">40</div> <div class="cell">46</div> <div class="cell">65</div>
+                        <div class="cell">09</div> <div class="cell">23</div> <div class="cell free-space">A</div> <div class="cell">51</div> <div class="cell">71</div>
+                        <div class="cell highlighted">04</div> <div class="cell highlighted">20</div> <div class="cell highlighted">39</div> <div class="cell highlighted">55</div> <div class="cell highlighted">67</div>
+                        <div class="cell">13</div> <div class="cell">22</div> <div class="cell">32</div> <div class="cell">60</div> <div class="cell">63</div>
+                    </div>
+                </div>
+
+                <div class="rule-item">
+                    <h4>Cartela Cheia (BINGO!)</h4>
+                    <p>Marque todos os 24 números da sua cartela.</p>
+                     <div class="card-example">
+                        <div class="cell highlighted">11</div> <div class="cell highlighted">16</div> <div class="cell highlighted">34</div> <div class="cell highlighted">54</div> <div class="cell highlighted">75</div>
+                        <div class="cell highlighted">07</div> <div class="cell highlighted">18</div> <div class="cell highlighted">40</div> <div class="cell highlighted">46</div> <div class="cell highlighted">65</div>
+                        <div class="cell highlighted">09</div> <div class="cell highlighted">23</div> <div class="cell free-space highlighted">A</div> <div class="cell highlighted">51</div> <div class="cell highlighted">71</div>
+                        <div class="cell highlighted">04</div> <div class="cell highlighted">20</div> <div class="cell highlighted">39</div> <div class="cell highlighted">55</div> <div class="cell highlighted">67</div>
+                        <div class="cell highlighted">13</div> <div class="cell highlighted">22</div> <div class="cell highlighted">32</div> <div class="cell highlighted">60</div> <div class="cell highlighted">63</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
