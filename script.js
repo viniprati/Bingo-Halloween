@@ -1,83 +1,254 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const drawButton = document.getElementById('draw-button');
-    const currentLetterDisplay = document.querySelector('.current-letter');
-    const currentNumberDisplay = document.querySelector('.current-number');
-    const currentBallParent = document.querySelector('.current-ball');
+body {
+    font-family: 'Lato', sans-serif;
+    background-color: #1a1a1a;
+    background-image: url("https://www.transparenttextures.com/patterns/dark-grunge-wall.png"), linear-gradient(to bottom, #2c1a4d, #1a1a1a);
+    color: #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px 0;
+}
 
-    const allBallDisplays = {
-        B: document.getElementById('all-b'),
-        I: document.getElementById('all-i'),
-        N: document.getElementById('all-n'),
-        G: document.getElementById('all-g'),
-        O: document.getElementById('all-o'),
-    };
+.bingo-container {
+    background-color: rgba(42, 42, 42, 0.85);
+    backdrop-filter: blur(5px);
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 0 30px rgba(255, 102, 0, 0.5), inset 0 0 10px rgba(0,0,0,0.5);
+    text-align: center;
+    width: 95%;
+    max-width: 900px;
+    border: 2px solid #4a148c;
+}
 
-    const rulesButton = document.getElementById('rules-button');
-    const rulesModal = document.getElementById('rules-modal');
-    const closeButton = document.querySelector('.close-button');
+h1, h2, h3 {
+    font-family: 'Creepster', cursive;
+    color: #ff6600;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+    letter-spacing: 4px;
+}
 
-    let availableNumbers = Array.from({ length: 75 }, (_, i) => i + 1);
+h1 { font-size: 3.5em; }
+h2 { font-size: 2.5em; margin-top: 40px; }
+h3 { font-size: 2em; }
 
-    function getLetter(number) {
-        if (number <= 15) return 'B';
-        if (number <= 30) return 'I';
-        if (number <= 45) return 'N';
-        if (number <= 60) return 'G';
-        return 'O';
-    }
+.current-ball-container { margin: 20px 0; }
 
-    function initializeBoard() {
-        availableNumbers.forEach(number => {
-            const letter = getLetter(number);
-            const ball = document.createElement('div');
-            ball.classList.add('ball');
-            ball.id = `ball-${number}`;
-            ball.textContent = number;
-            allBallDisplays[letter].appendChild(ball);
-        });
-    }
+.current-ball {
+    width: 150px;
+    height: 150px;
+    background-image: radial-gradient(circle, #ffc107, #ff8c00);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: #4a148c;
+    margin: 0 auto;
+    box-shadow: inset -10px -10px 20px rgba(0,0,0,0.4), 0 5px 15px rgba(0,0,0,0.3);
+    border: 4px solid #4a148c;
+    transition: transform 0.3s ease;
+    animation: pulse 2s infinite;
+}
 
-    function drawNumber() {
-        if (availableNumbers.length === 0) {
-            alert('Todas as abóboras já foram sorteadas!');
-            drawButton.disabled = true;
-            return;
-        }
+.current-letter { font-family: 'Creepster', cursive; font-size: 2.5em; line-height: 1; }
+.current-number { font-size: 3.5em; line-height: 1.2; font-weight: 700; }
 
-        const randomIndex = Math.floor(Math.random() * availableNumbers.length);
-        const newNumber = availableNumbers[randomIndex];
-        
-        availableNumbers.splice(randomIndex, 1);
+@keyframes pulse {
+    0% { transform: scale(1); box-shadow: 0 0 15px #ff8c00; }
+    50% { transform: scale(1.05); box-shadow: 0 0 30px #ffc107; }
+    100% { transform: scale(1); box-shadow: 0 0 15px #ff8c00; }
+}
 
-        const letter = getLetter(newNumber);
+#draw-button {
+    font-family: 'Creepster', cursive;
+    background-image: linear-gradient(to right, #ff6600, #e65100);
+    color: #fff;
+    padding: 15px 32px;
+    font-size: 24px;
+    letter-spacing: 3px;
+    margin: 20px 10px 0 10px;
+    cursor: pointer;
+    border: 2px solid #fff;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    text-shadow: 1px 1px 2px #000;
+}
 
-        currentBallParent.style.transform = 'scale(0.5)';
-        setTimeout(() => {
-            currentLetterDisplay.textContent = letter;
-            currentNumberDisplay.textContent = newNumber;
-        }, 150);
+#draw-button:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(255, 102, 0, 0.7);
+}
 
-        const allBall = document.getElementById(`ball-${newNumber}`);
-        allBall.classList.add('drawn');
-    }
+#rules-button {
+    font-family: 'Creepster', cursive;
+    background-image: linear-gradient(to right, #6a1b9a, #4a148c);
+    color: #e0e0e0;
+    padding: 10px 25px;
+    font-size: 20px;
+    letter-spacing: 2px;
+    margin: 20px 10px 0 10px;
+    cursor: pointer;
+    border: 2px solid #c192ff;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
 
-    function openModal() {
-        rulesModal.classList.remove('hidden');
-    }
+#rules-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(170, 78, 255, 0.5);
+}
 
-    function closeModal() {
-        rulesModal.classList.add('hidden');
-    }
+.all-balls-grid { display: flex; justify-content: center; gap: 15px; margin-top: 15px; }
+.letter-column { flex: 1; min-width: 60px; max-width: 120px; }
+.all-balls { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 10px; }
 
-    rulesButton.addEventListener('click', openModal);
-    closeButton.addEventListener('click', closeModal);
+.ball {
+    width: 45px;
+    height: 45px;
+    background-color: #4a4a4a;
+    border: 2px solid #6a6a6a;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #ccc;
+    transition: all 0.3s ease;
+}
+
+.ball.drawn {
+    background-color: #ff8c00;
+    color: white;
+    transform: scale(1.1);
+    border-color: #ffc107;
+    box-shadow: 0 0 10px #ff6600;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    z-index: 1000;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    overflow-y: auto;
+    padding: 20px 0;
+}
+
+.modal-overlay.hidden { opacity: 0; visibility: hidden; }
+
+.modal-content {
+    background-color: #2a2a2a;
+    padding: 30px;
+    border-radius: 20px;
+    border: 2px solid #4a148c;
+    box-shadow: 0 0 40px rgba(170, 78, 255, 0.6);
+    width: 90%;
+    max-width: 550px;
+    position: relative;
+    transform: scale(1);
+    transition: transform 0.3s ease;
+    margin: auto;
+}
+
+.modal-overlay.hidden .modal-content { transform: scale(0.8); }
+
+.close-button {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2.5em;
+    color: #e0e0e0;
+    cursor: pointer;
+    transition: color 0.2s, transform 0.2s;
+}
+
+.close-button:hover { color: #ff6600; transform: rotate(90deg); }
+.rules-subtitle { color: #aaa; margin-top: -15px; }
+.rules-list { display: flex; flex-direction: column; gap: 30px; }
+.rule-item { text-align: center; }
+
+.rule-item h4 {
+    font-family: 'Lato', sans-serif;
+    font-size: 1.4em;
+    color: #ffc107;
+    margin-bottom: 5px;
+}
+.rule-item p { font-size: 1.1em; color: #ccc; line-height: 1.6; margin-bottom: 15px; }
+
+.card-example {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 5px;
+    max-width: 350px;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.cell {
+    padding: 8px;
+    background-color: #4a4a4a;
+    border: 1px solid #6a6a6a;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2em;
+    transition: all 0.3s ease;
+}
+
+.cell.free-space {
+    font-family: 'Creepster', cursive;
+    color: #ffc107;
+    font-size: 1.5em;
+}
+
+.cell.highlighted {
+    background-color: #ff6600;
+    color: #fff;
+    transform: scale(1.05);
+    border-color: #ffc107;
+    box-shadow: 0 0 10px #ff6600;
+}
+
+@media (max-width: 480px) {
+    h1 { font-size: 2.5em; }
+    h2 { font-size: 2em; }
     
-    rulesModal.addEventListener('click', (event) => {
-        if (event.target === rulesModal) {
-            closeModal();
-        }
-    });
+    .all-balls-grid { gap: 5px; }
+    .letter-column { min-width: 50px; }
+    .ball { width: 40px; height: 40px; font-size: 1em; }
 
-    drawButton.addEventListener('click', drawNumber);
-    initializeBoard();
-});
+    .modal-content {
+        padding: 20px;
+    }
+
+    .card-example {
+        gap: 3px;
+        padding: 5px;
+    }
+
+    .cell {
+        font-size: 0.9em;
+        padding: 4px;
+        border-radius: 3px;
+    }
+
+    .rule-item h4 { font-size: 1.2em; }
+    .rule-item p { font-size: 1em; }
+}
